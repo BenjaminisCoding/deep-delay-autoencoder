@@ -1,0 +1,20 @@
+name: deep_delay_encoder
+channels:
+  - conda-forge
+  - anaconda
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - ipython
+  - pip:
+    - mat73
+    - pysindy
+    - tqdm
+    - tensorflow
+
+

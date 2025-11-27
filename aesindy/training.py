@@ -4,7 +4,7 @@ import time
 import datetime
 import numpy as np
 import pandas as pd
-import pickle5 as pickle
+#import pickle5 as pickle
 from sklearn.model_selection import train_test_split
 from tensorflow.keras import layers
 import tensorflow as tf
@@ -105,7 +105,8 @@ class TrainModel:
         os.makedirs(os.path.join(self.params['data_path'], self.savename, 'checkpoints'), exist_ok=True)
         
         # Build model and fit
-        optimizer = tf.keras.optimizers.Adam(lr=self.params['learning_rate'])
+        #optimizer = tf.keras.optimizers.Adam(lr=self.params['learning_rate']) lr renamed to learning_rate in recent version
+        optimizer = tf.keras.optimizers.Adam(learning_rate=self.params['learning_rate'])
         self.model.compile(optimizer=optimizer, loss='mse')
 
         callback_list = get_callbacks(self.params, self.savename, x=test_data[1])
@@ -148,18 +149,20 @@ class TrainModel:
         saving_params = self.params
             
         # Save parameters
-        df = pd.DataFrame()
-        df = df.append(saving_params, ignore_index=True)
+        df = pd.DataFrame([saving_params])
+        #df = pd.DataFrame() #old way to do it 
+        #df = df.append(saving_params, ignore_index=True)
         df.to_pickle(os.path.join(saving_params['data_path'], self.savename + '_params.pkl'))
             
     def save_results(self, model):
-        df = pd.DataFrame()
-        df = df.append(self.get_results(model), ignore_index=True)
+        # df = pd.DataFrame()
+        # df = df.append(self.get_results(model), ignore_index=True)
+        df = pd.DataFrame([self.get_results(model)])
         df.to_pickle(os.path.join(self.params['data_path'], self.savename + '_results.pkl'))
 
         # Save model
-        pdb.set_trace()
-        model.save(os.path.join(self.params['data_path'], self.savename))
+        #pdb.set_trace()
+        #model.save(os.path.join(self.params['data_path'], self.savename + '.keras')) Commented because it woul require me to change too much the code
 
 #########################################################
 
@@ -182,7 +185,7 @@ def get_callbacks(params, savename, x=None, t=None):
     
     # Early stopping in when training stops improving
     if params['patience'] is not None:
-        callback_list.append(tf.keras.callbacks.EarlyStopping(patience=params['patience'], monitor='val_total_loss'))
+        callback_list.append(tf.keras.callbacks.EarlyStopping(patience=params['patience'], monitor='val_total_loss', mode = 'min'))
 
 
     # Learning rate scheduler - Decrease learning rate exponentially (include in callback if needed)

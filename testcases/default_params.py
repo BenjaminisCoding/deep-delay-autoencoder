@@ -1,9 +1,9 @@
 import os
 
-from aesindy.config import ROOTPATH
+#from aesindy.config import ROOTPATH
 
 params = {}
-params['data_path'] = os.path.join(ROOTPATH, 'testcases/results/')
+params['data_path'] = os.path.join('results/')
 if not os.path.isdir(params['data_path']):
     os.makedirs(params['data_path'])
 

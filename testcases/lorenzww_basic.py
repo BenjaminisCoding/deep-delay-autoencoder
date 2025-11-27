@@ -67,6 +67,6 @@ R = RealData(input_dim=params['input_dim'],
     
 R.build_solution(data)
 
-pdb.set_trace()
+#pdb.set_trace()
 trainer = TrainModel(R, params)
 trainer.fit() 
