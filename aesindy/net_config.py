@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, regularizers
 import pysindy as ps
+import pdb
     
 class SindyCall(tf.keras.callbacks.Callback):
     def __init__(self, threshold, update_freq, x, t):
@@ -152,8 +153,7 @@ class Sindy(layers.Layer):
         # --- KERAS 3 COMPATIBILITY FIX ---
         # 1. Determine Initializer Logic
         init_obj = None
-        mask_val = np.ones((self.library_dim, self.state_dim))
-
+        mask_val = np.ones((self.library_dim, self.state_dim)) 
         if type(initializer) == np.ndarray:
             mask_val = (np.abs(initializer) > 1e-10).astype(np.float32)
             init_obj = tf.constant_initializer(initializer)
@@ -166,7 +166,7 @@ class Sindy(layers.Layer):
         elif initializer == 'constant':
             init_obj = tf.constant_initializer(0.0)
         elif initializer == 'random_normal':
-            init_obj = tf.keras.initializers.RandomNormal(mean=0.0, stddev=10.0)
+            init_obj = tf.keras.initializers.RandomNormal(mean=0.0, stddev=1.0)
         elif type(initializer) != str:
             init_obj = tf.constant_initializer(initializer)
         else:

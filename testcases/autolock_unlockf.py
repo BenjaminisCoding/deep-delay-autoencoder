@@ -6,7 +6,7 @@ import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
-from __init__ import *
+#from __init__ import *
 import datetime
 import numpy as np
 import tensorflow as tf
@@ -26,7 +26,7 @@ params['dt'] = 0.001
 params['n_ics'] = 5
 params['batch_size'] = 500 
 params['coefficient_initialization'] = 'true' 
-params['max_epochs'] = 3000
+params['max_epochs'] = 10
 params['loss_weight_x0'] = 0.2 
 params['loss_weight_sindy_x'] = 0.001 
 params['loss_weight_sindy_z'] = 0.0001 #0.2 # forces first element to be the same in x and z

@@ -44,7 +44,7 @@ params['coefficient_initialization'] = 'random_normal'
 params['fixed_coefficient_mask'] = False
 params['fix_coefs'] = False
 params['trainable_auto'] = True 
-params['sindy_pert'] = 0.0
+params['sindy_pert'] = 0.05
 
 # loss function weighting
 params['loss_weight_rec'] = 1.0
